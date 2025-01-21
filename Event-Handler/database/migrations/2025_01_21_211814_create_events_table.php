@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('picture');
             $table->string('type');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }
