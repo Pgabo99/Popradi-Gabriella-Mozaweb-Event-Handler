@@ -21,6 +21,30 @@
                             <a class="nav-link {{Request::path() == '/' ? 'active' : '' }}" aria-current="page"
                                 href="{{route("home")}}">Kezdőoldal</a>
                         </li>
+
+                        {{-- Pages related to guests--}}
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link {{Request::path() == '/login' ? 'active' : '' }}" aria-current="page"
+                                    href="{{route("login")}}">Bejelentkezés</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{Request::path() == '/register' ? 'active' : '' }}" aria-current="page"
+                                    href="{{route("register")}}">Regisztráció</a>
+                            </li>
+                        @endguest
+
+                         {{-- Pages related to logged in users--}}
+                         @auth
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page"
+                                    href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Kijelentkezés</a>
+                                    <form id="logout-form" action="{{ route('logout.post') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
