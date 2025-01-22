@@ -45,7 +45,7 @@ class AuthController extends Controller
         return redirect(route("login"))->with("error", "Hibás email vagy jelszó.");
     }
 
-     /**
+    /**
      * Creating a new user
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse

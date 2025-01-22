@@ -36,7 +36,7 @@
                                 @endif
                             </div>
 
-                           {{-- Email --}}
+                            {{-- Email --}}
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="Email" id="email" class="form-control" name="email"
                                     required>
