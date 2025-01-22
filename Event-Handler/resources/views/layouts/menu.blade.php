@@ -34,17 +34,36 @@
                             </li>
                         @endguest
 
-                         {{-- Pages related to logged in users--}}
-                         @auth
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page"
-                                    href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Kijelentkezés</a>
-                                    <form id="logout-form" action="{{ route('logout.post') }}" method="POST"
+                        {{-- Pages related to logged in users--}}
+                        @auth
+                            <li class="nav-item dropdown">
+
+                                {{--The dropdown --}}
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Profil
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+
+                                    {{-- Loggen in users data--}}
+                                    <li><a class="dropdown-item" href="{{route("user.show", Auth::id())}}">Adataim</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    {{-- Logout--}}
+                                    <li>
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Kijelentkezés</a>
+                                        <form id="logout-form" action="{{ route('logout.post') }}" method="POST"
                                             style="display: none;">
                                             @csrf
                                         </form>
+                                    </li>
+                                </ul>
                             </li>
                         @endauth
+                        
                     </ul>
                 </div>
             </div>
