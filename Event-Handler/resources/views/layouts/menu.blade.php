@@ -45,8 +45,14 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
 
-                                    {{-- Loggen in users data--}}
+                                    {{-- Logged in users data--}}
                                     <li><a class="dropdown-item" href="{{route("user.show", Auth::id())}}">Adataim</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    {{-- Events created by the logges in user--}}
+                                    <li><a class="dropdown-item" href="{{route("events.create")}}">Általam létrehezott események</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
