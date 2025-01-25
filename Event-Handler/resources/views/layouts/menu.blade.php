@@ -16,11 +16,6 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        {{--Homepage--}}
-                        <li class="nav-item">
-                            <a class="nav-link {{Request::path() == '/' ? 'active' : '' }}" aria-current="page"
-                                href="{{route("home")}}">Kezdőoldal</a>
-                        </li>
 
                         {{-- Pages related to guests--}}
                         @guest
@@ -36,9 +31,15 @@
 
                         {{-- Pages related to logged in users--}}
                         @auth
-                            <li class="nav-item dropdown">
 
-                                {{--The dropdown --}}
+                            {{--Homepage--}}
+                            <li class="nav-item">
+                                <a class="nav-link {{Request::path() == '/' ? 'active' : '' }}" aria-current="page"
+                                    href="{{route("home")}}">Kezdőoldal</a>
+                            </li>
+
+                             {{--The dropdown --}}
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Profil
@@ -52,7 +53,8 @@
                                     </li>
 
                                     {{-- Events created by the logges in user--}}
-                                    <li><a class="dropdown-item" href="{{route("events.create")}}">Általam létrehezott események</a></li>
+                                    <li><a class="dropdown-item" href="{{route("events.create")}}">Általam létrehezott
+                                            események</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -69,7 +71,7 @@
                                 </ul>
                             </li>
                         @endauth
-                        
+
                     </ul>
                 </div>
             </div>

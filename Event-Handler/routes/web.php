@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\InviteesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 //Routes for logged in users
 Route::middleware("auth")->group(function () {
     //User
-    Route::get('/', function () {
-        return view('welcome'); })->name('home');
+    Route::get('/',[EventController::class, 'show'] )->name('home');
     Route::post("/logout", [AuthController::class, "logoutPost"])->name("logout.post");
     Route::resource("user", UserController::class)->only("show", "edit", "update", "destroy");
 
@@ -19,6 +19,11 @@ Route::middleware("auth")->group(function () {
     Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
     Route::get('/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::delete('/events/{id}/delete', [EventController::class, 'destroy'])->name('events.destroy');
+
+    //Invitees
+    Route::post('/invitees/store', [InviteesController::class, 'store'])->name('invitees.store');
+    Route::get('/invitees/{user_id}/{event_id}/getone', [InviteesController::class, 'getOne'])->name('invitees.getOne');
+    Route::delete('/invitees/{user_id}/{event_id}/delete', [InviteesController::class, 'destroy'])->name('invitees.destroy');
 });
 
 //Routes for Guests

@@ -1,121 +1,118 @@
 @extends("layouts.default")
 @section("title", "Eseményeim")
 @section("content")
-<main class="mt-5">
-    <div class="container">
-        <!-- Modal for the Creating and Editing-->
-        <div class="modal fade eventModel" id="Event" tabindex="-1" aria-labelledby="EventTitle" aria-hidden="true">
-            <form id="eventForm">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="EventTitle"></h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" id="event_edit" class="form-control" name="event_edit">
-                            <input type="hidden" id="event_id" class="form-control" name="event_id">
 
-                            <!-- Event name -->
-                            <div class="form-group mb-3">
-                            <label for="name" class="form-label">Esemény neve</label>
-                                <input type="text" placeholder="Esemény neve" id="name" class="form-control" name="name"
-                                    required autofocus>
-                                <span id="eventNameError" class="text-danger error-msg"></span>
-                            </div>
+@include('events.preview')
 
-                            <!-- Event date -->
-                            <div class="form-group mb-3">
-                                <label for="date" class="form-label">Esemény napja</label>
-                                <input type="date" min="<?= date('Y-m-d'); ?>" value="<?= date('Y-m-d'); ?>" id="date"
-                                    class="form-control" name="date" required>
-                                <span id="eventDateError" class="text-danger error-msg"></span>
-                            </div>
+{{-- Modal for the Creating and Editing--}}
+<div class="modal fade eventModel" id="Event" tabindex="-1" aria-labelledby="EventTitle" aria-hidden="true">
+    <form id="eventForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="EventTitle"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="event_edit" class="form-control" name="event_edit">
+                    <input type="hidden" id="event_id" class="form-control" name="event_id">
 
-                            <!-- Event location -->
-                            <div class="form-group mb-3">
-                            <label for="location" class="form-label">Helyszín</label>
-                                <input type="text" placeholder="Esemény helye" id="location" class="form-control"
-                                    name="location" required>
-                                <span id="locationError" class="text-danger error-msg"></span>
-                            </div>
+                    {{-- Event name --}}
+                    <div class="form-group mb-3">
+                        <label for="name" class="form-label">Esemény neve</label>
+                        <input type="text" placeholder="Esemény neve" id="name" class="form-control" name="name"
+                            required autofocus>
+                        <span id="eventNameError" class="text-danger error-msg"></span>
+                    </div>
 
-                            <!-- Picture -->
-                            <div class="form-group mb-3">
-                            <label for="picture" class="form-label">Kép</label>
-                                <input type="text" placeholder="Kép" id="picture" class="form-control" name="picture"
-                                    required>
-                                <span id="pictureError" class="text-danger error-msg"></span>
-                            </div>
+                    {{-- Event date --}}
+                    <div class="form-group mb-3">
+                        <label for="date" class="form-label">Esemény napja</label>
+                        <input type="date" min="<?= date('Y-m-d'); ?>" value="<?= date('Y-m-d'); ?>" id="date"
+                            class="form-control" name="date" required>
+                        <span id="eventDateError" class="text-danger error-msg"></span>
+                    </div>
 
-                            <!-- Event type-->
-                            <div class="form-group mb-3">
-                                <label for="type" class="form-label">Típus</label>
-                                <select class="form-control" id="type" name="type" required>
-                                    <option value="public" selected>Publikus</option>
-                                    <option value="private">Private</option>
-                                </select>
-                                <span id="EventTypeError" class="text-danger error-msg"></span>
-                            </div>
+                    {{-- Event location --}}
+                    <div class="form-group mb-3">
+                        <label for="location" class="form-label">Helyszín</label>
+                        <input type="text" placeholder="Esemény helye" id="location" class="form-control"
+                            name="location" required>
+                        <span id="locationError" class="text-danger error-msg"></span>
+                    </div>
 
-                            <!-- Description-->
-                            <div class="form-group mb-3">
-                            <label for="description" class="form-label">Leírás</label>
-                            <textarea class="form-control" id="description" rows="3" placeholder="Leírás..." name="description"></textarea>
-                                <span id="descriptionError" class="text-danger error-msg"></span>
-                            </div>
-                        </div>
+                    {{-- Picture --}}
+                    <div class="form-group mb-3">
+                        <label for="picture" class="form-label">Kép</label>
+                        <input type="text" placeholder="Kép" id="picture" class="form-control" name="picture" required>
+                        <span id="pictureError" class="text-danger error-msg"></span>
+                    </div>
 
-                        <!-- Close and Save Buttons -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                            <button type="button" class="btn btn-primary" id="eventSaveBTn">Mentés</button>
-                        </div>
+                    {{-- Event type--}}
+                    <div class="form-group mb-3">
+                        <label for="type" class="form-label">Típus</label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="public" selected>Publikus</option>
+                            <option value="private">Private</option>
+                        </select>
+                        <span id="EventTypeError" class="text-danger error-msg"></span>
+                    </div>
 
+                    {{-- Description--}}
+                    <div class="form-group mb-3">
+                        <label for="description" class="form-label">Leírás</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Leírás..."
+                            name="description"></textarea>
+                        <span id="descriptionError" class="text-danger error-msg"></span>
                     </div>
                 </div>
-            </form>
-        </div>
 
-        <!-- New competition modal trigger button -->
-        <div class="d-grid gap-2">
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Event" id="addEvent"
-                width="100%"> Új verseny </button>
-        </div>
-
-        
-        <div class="card">
-            <!-- Events table-->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-hover align-middle caption-bottom table-bordered"
-                        id="events-table">
-                        <caption>Előnézet megtekintéséhez kattints egy sorra</caption>
-                        <thead class="table-light align-middle">
-                            <tr>
-                                <th colspan="8" style="text-align: center;">Eseményeim</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Név</th>
-                                <th scope="col">Dátum</th>
-                                <th scope="col">Helyszín</th>
-                                <th scope="col">Kép</th>
-                                <th scope="col">Típus</th>
-                                <th scope="col">Leírás</th>
-                                <th scope="col">Művelet</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                {{-- Close and Save Buttons --}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    <button type="button" class="btn btn-primary" id="eventSaveBTn">Mentés</button>
                 </div>
+
             </div>
         </div>
+    </form>
+</div>
 
+{{-- New competition modal trigger button --}}
+<div class="d-grid gap-2">
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Event" id="addEvent"
+        width="100%"> Új verseny </button>
+</div>
+
+
+<div class="card">
+    {{-- Events table--}}
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle caption-bottom table-bordered" id="events-table">
+                <caption>Előnézet megtekintéséhez kattints az előnézet gombra</caption>
+                <thead class="table-light align-middle">
+                    <tr>
+                        <th colspan="8" style="text-align: center;">Eseményeim</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Név</th>
+                        <th scope="col">Dátum</th>
+                        <th scope="col">Helyszín</th>
+                        <th scope="col">Kép</th>
+                        <th scope="col">Típus</th>
+                        <th scope="col">Leírás</th>
+                        <th scope="col">Művelet</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
     </div>
-</main>
+</div>
 <script>
     $(document).ready(function () {
 
@@ -125,13 +122,13 @@
             serverSide: true,
             ajax: "{{route('events.index')}}",
             columns: [
-                { data: 'id', className: "clickable" },
-                { data: 'name', className: "clickable" },
-                { data: 'date', className: "clickable" },
-                { data: 'location', className: "clickable" },
-                { data: 'picture', className: "clickable" },
-                { data: 'type', className: "clickable" },
-                { data: 'description', className: "clickable" },
+                { data: 'id'},
+                { data: 'name'},
+                { data: 'date'},
+                { data: 'location'},
+                { data: 'picture'},
+                { data: 'type'},
+                { data: 'description'},
                 { data: 'action', name: 'action', orderable: false, searchable: false }
             ]
         });
@@ -188,7 +185,6 @@
                 success: function (response) {
                     $('.eventModel').modal('show');
                     $('#EventTitle').html('Verseny módosítása');
-
                     $('#event_edit').val('editing');
                     $('#event_id').val(response.id);
                     $('#name').val(response.name);
@@ -199,7 +195,7 @@
                     $('#description').val(response.description);
                 },
                 error: function (error) {
-                    console.log(error)
+                    swal("Sikertelen!", 'Próbáld újra', "error");
                 }
             });
         });
@@ -214,10 +210,10 @@
                     method: 'DELETE',
                     success: function (response) {
                         table.draw();
-                        swal("Sikeres törlés!", "Sikeresen törölted az eseményt." ,"success");
+                        swal("Sikeres törlés!", "Sikeresen törölted az eseményt.", "success");
                     },
                     error: function (error) {
-                        console.log(error)
+                        swal("Sikertelen!", 'Próbáld újra', "error");
                     }
                 });
             }
@@ -227,7 +223,7 @@
         $('#addEvent').click(function () {
             $('#event_edit').val(null);
             $('#event_id').val(null);
-            $('#name').val('');
+            $('#name').val(''); 
             $('#date').val(new Date().toISOString().slice(0, 10));
             $('#location').val('');
             $('#picture').val('');
