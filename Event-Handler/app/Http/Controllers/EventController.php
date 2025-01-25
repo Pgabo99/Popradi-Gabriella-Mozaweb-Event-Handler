@@ -19,10 +19,12 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
+       
         $events = Event::select('id', 'name', 'date', 'location', 'picture', 'type', 'description')->where('creator_id', Auth::user()->id)->get();
         if ($request->ajax()) {
             return DataTables::of($events)->addColumn('action', function ($row) {
-                return '<a href="javascript:void(0)" class="btn-sm btn btn-secondary editButton d-grid gap-2" data-event_id="' . $row->id . '" >Szerkeszt</a>
+                return ' <a class="btn-sm btn btn-info previewButton d-grid gap-2 click" data-id="' . $row->id . '" href="#" data-bs-toggle="modal" data-bs-target="#eventPreviewModal">Előnézet</a>
+                <a href="javascript:void(0)" class="btn-sm btn btn-secondary editButton d-grid gap-2" data-event_id="' . $row->id . '" >Szerkeszt</a>
                 <a href="javascript:void(0)" class="btn-sm btn btn-danger deleteButton d-grid gap-2" data-event_id="' . $row->id . '">Töröl</a>';
             })
                 ->rawColumns(['action'])
@@ -55,10 +57,11 @@ class EventController extends Controller
             'type' => 'required|string',
             'description' => 'required',
         ]);
-        $data['creator_id'] = Auth::user()->id;
-
         if ($request->event_edit != null) {
-            $event = Event::findOrFail($request['event_id']);
+            $data['creator_id'] = Auth::user()->id;
+            
+            $event = Event::findOrFail($request["event_id"]);
+           
             if ($data['name'] === $event['name'] && $data['date'] === $event['date'] && $data['location'] === $event['location'] && $data['picture'] === $event['picture'] && $data['type'] === $event['type'] && $data['description'] === $event['description'])
                 return response()->json([
                     'success' => 'Nem változott semmi.'
@@ -127,6 +130,7 @@ class EventController extends Controller
         })
         ->select('events.*') 
         ->distinct() 
+        ->orderBy('events.date','desc')
         ->get();
         return view("welcome", ["events" => $events]);
     }

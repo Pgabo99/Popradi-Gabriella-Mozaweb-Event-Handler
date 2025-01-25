@@ -1,6 +1,9 @@
 @extends("layouts.default")
 @section("title", "Eseményeim")
 @section("content")
+
+@include('events.preview')
+
 {{-- Modal for the Creating and Editing--}}
 <div class="modal fade eventModel" id="Event" tabindex="-1" aria-labelledby="EventTitle" aria-hidden="true">
     <form id="eventForm">
@@ -87,7 +90,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-sm table-hover align-middle caption-bottom table-bordered" id="events-table">
-                <caption>Előnézet megtekintéséhez kattints egy sorra</caption>
+                <caption>Előnézet megtekintéséhez kattints az előnézet gombra</caption>
                 <thead class="table-light align-middle">
                     <tr>
                         <th colspan="8" style="text-align: center;">Eseményeim</th>
@@ -119,13 +122,13 @@
             serverSide: true,
             ajax: "{{route('events.index')}}",
             columns: [
-                { data: 'id', className: "clickable" },
-                { data: 'name', className: "clickable" },
-                { data: 'date', className: "clickable" },
-                { data: 'location', className: "clickable" },
-                { data: 'picture', className: "clickable" },
-                { data: 'type', className: "clickable" },
-                { data: 'description', className: "clickable" },
+                { data: 'id'},
+                { data: 'name'},
+                { data: 'date'},
+                { data: 'location'},
+                { data: 'picture'},
+                { data: 'type'},
+                { data: 'description'},
                 { data: 'action', name: 'action', orderable: false, searchable: false }
             ]
         });
@@ -182,7 +185,6 @@
                 success: function (response) {
                     $('.eventModel').modal('show');
                     $('#EventTitle').html('Verseny módosítása');
-
                     $('#event_edit').val('editing');
                     $('#event_id').val(response.id);
                     $('#name').val(response.name);
@@ -221,7 +223,7 @@
         $('#addEvent').click(function () {
             $('#event_edit').val(null);
             $('#event_id').val(null);
-            $('#name').val('');
+            $('#name').val(''); 
             $('#date').val(new Date().toISOString().slice(0, 10));
             $('#location').val('');
             $('#picture').val('');
