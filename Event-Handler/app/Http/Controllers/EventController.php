@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Auth;
+use DB;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Laravel\Pail\ValueObjects\Origin\Console;
 use Yajra\DataTables\Facades\DataTables;
 
 class EventController extends Controller
@@ -116,7 +117,17 @@ class EventController extends Controller
      */
     public function show()
     {
-        $event = Event::all();
-        return view("events.show", ["events" => $event]);
+        $events= Event::leftJoin('invitees','events.id','=','invitees.event_id')
+        ->where(function ($query) {
+            $query->where('events.type', 'public')
+                  ->orWhere(function ($query) {
+                      $query->where('events.type', 'private')
+                            ->where('invitees.user_id', Auth::user()->id); 
+                  });
+        })
+        ->select('events.*') 
+        ->distinct() 
+        ->get();
+        return view("welcome", ["events" => $events]);
     }
 }
