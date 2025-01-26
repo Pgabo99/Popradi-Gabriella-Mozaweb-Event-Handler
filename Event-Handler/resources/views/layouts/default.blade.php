@@ -17,7 +17,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   {{-- SweetAlert--}}
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+  <style>
+    .clickable{
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -35,7 +39,6 @@
   {{-- DataTables--}}
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
 </body>
-
 
 {{-- csrf setup--}}
 <script type="text/javascript">

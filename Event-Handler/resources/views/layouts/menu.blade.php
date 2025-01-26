@@ -46,12 +46,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
 
-                                    {{-- Logged in users data--}}
-                                    <li><a class="dropdown-item" href="{{route("user.show", Auth::id())}}">Adataim</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-
                                     {{-- Events created by the logged in user--}}
                                     <li><a class="dropdown-item" href="{{route("events.create")}}">Létrehezott
                                             eseményeim</a></li>
@@ -62,6 +56,12 @@
                                     {{-- Events that the user is going or invited--}}
                                     <li><a class="dropdown-item" href="{{route("user.events")}}">Jelenlegi eseményeim</a>
                                     </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    {{-- Logged in users data--}}
+                                    <li><a class="dropdown-item" href="{{route("user.show", Auth::id())}}">Adataim</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

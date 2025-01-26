@@ -53,7 +53,7 @@
                         <p>Még nincs felhasználód?<a href="{{route("register")}}" class="link-primary">Regisztráció</a>
                         </p>
                     </div>
-
+                    
                 </form>
             </div>
         </div>

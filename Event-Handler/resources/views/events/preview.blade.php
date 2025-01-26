@@ -27,12 +27,12 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
 
         //Binding the datas into the modal
-        $('body').on('click', '.click', function () {
-            
+        $('body').on('click', '.click', function () { 
             var event_id = $(this).data("id");
             var user_id = {{Auth::user()->id}};
             $.ajax({

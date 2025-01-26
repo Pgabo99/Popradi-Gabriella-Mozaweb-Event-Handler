@@ -1,4 +1,4 @@
-@if($events->isEmpty() )
+@if($events->isEmpty())
     <div class="alert alert-warning" role="alert">
         Nem találtam eseményt
     </div>
@@ -6,7 +6,8 @@
     <div class="row row-cols-1 row-cols-md-2 g-4">
         @foreach ($events as $event)
             <div class="col">
-                <div class="card {{$event->date < date('Y-m-d') ? "text-bg-secondary" : ($event->type==="private"?"text-bg-dark text-white":"")}}">
+                <div
+                    class="card {{$event->date < date('Y-m-d') ? "text-bg-secondary" : ($event->type === "private" ? "text-bg-dark text-white" : "")}}">
                     <img src="{{$event->picture}}" class="card-img-top" alt="Event image"
                         style="height: 200px;object-fit: cover;object-position: center; width: 100%;">
                     <div class="card-body">
