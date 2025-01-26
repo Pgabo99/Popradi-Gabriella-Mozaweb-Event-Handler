@@ -19,7 +19,7 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         $events = Event::select('id', 'name', 'date', 'location', 'picture', 'type', 'description')->where('creator_id', Auth::user()->id)->get();
         if ($request->ajax()) {
             return DataTables::of($events)->addColumn('action', function ($row) {
@@ -60,7 +60,7 @@ class EventController extends Controller
         $data['creator_id'] = Auth::user()->id;
         if ($request->event_edit != null) {
             $event = Event::findOrFail($request["event_id"]);
-           
+
             if ($data['name'] === $event['name'] && $data['date'] === $event['date'] && $data['location'] === $event['location'] && $data['picture'] === $event['picture'] && $data['type'] === $event['type'] && $data['description'] === $event['description'])
                 return response()->json([
                     'success' => 'Nem változott semmi.'
@@ -119,22 +119,30 @@ class EventController extends Controller
      */
     public function show()
     {
-        $events= Event::leftJoin('invitees','events.id','=','invitees.event_id')
-        ->where(function ($query) {
-            $query->where('events.type', 'public')
-                  ->orWhere(function ($query) {
-                      $query->where('events.type', 'private')
-                            ->where('invitees.user_id', Auth::user()->id); 
-                  });
-        })
-        ->select('events.*') 
-        ->distinct() 
-        ->orderBy('events.date','desc')
-        ->get();
+        // Alapértelmezett lekérdezés
+        $query = Event::leftJoin('invitees', 'events.id', '=', 'invitees.event_id')
+            ->where(function ($query) {
+                $query->where('events.type', 'public')
+                    ->orWhere(function ($query) {
+                        $query->where('events.type', 'private')
+                            ->where('invitees.user_id', Auth::user()->id);
+                    });
+            })
+            ->select('events.*')
+            ->distinct()
+            ->orderBy('events.date', 'desc');
+
+        if (request()->has('searchLocation') && request()->get('searchLocation') !== '') {
+            $searchLocation = request()->get('searchLocation');
+            $query->where('location', 'like', '%' . $searchLocation . '%');
+        }
+
+        $events = $query->get();
+
         return view("welcome", ["events" => $events]);
     }
 
-     /**
+    /**
      * Redirect to the Events page 
      * @return \Illuminate\Contracts\View\View
      */
@@ -143,7 +151,7 @@ class EventController extends Controller
         $events = Event::leftJoin('invitees', 'events.id', '=', 'invitees.event_id')
             ->where(function ($query) {
                 $query->where('invitees.user_id', Auth::user()->id)
-                      ->orWhere('events.creator_id', Auth::user()->id);
+                    ->orWhere('events.creator_id', Auth::user()->id);
             })
             ->select('events.*')
             ->distinct()
