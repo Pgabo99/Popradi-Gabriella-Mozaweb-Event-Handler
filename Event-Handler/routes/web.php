@@ -6,11 +6,13 @@ use App\Http\Controllers\InviteesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
 //Routes for logged in users
 Route::middleware("auth")->group(function () {
     //User
     Route::get('/',[EventController::class, 'show'] )->name('home');
     Route::post("/logout", [AuthController::class, "logoutPost"])->name("logout.post");
+    Route::get('/user/events', [EventController::class, 'showUser'])->name('user.events');
     Route::resource("user", UserController::class)->only("show", "edit", "update", "destroy");
 
     //Events
