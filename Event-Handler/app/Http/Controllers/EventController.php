@@ -55,11 +55,10 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'picture' => 'required|string|max:255',
             'type' => 'required|string',
-            'description' => 'required',
+            'description' => 'required|string',
         ]);
+        $data['creator_id'] = Auth::user()->id;
         if ($request->event_edit != null) {
-            $data['creator_id'] = Auth::user()->id;
-            
             $event = Event::findOrFail($request["event_id"]);
            
             if ($data['name'] === $event['name'] && $data['date'] === $event['date'] && $data['location'] === $event['location'] && $data['picture'] === $event['picture'] && $data['type'] === $event['type'] && $data['description'] === $event['description'])
@@ -79,11 +78,11 @@ class EventController extends Controller
             ], 201);
 
         } else {
-            if (Event::create($data)) {
-                return response()->json([
-                    'success' => 'Sikeres verseny felvétel'
-                ], 201);
-            }
+            Event::create($data);
+
+            return response()->json([
+                'success' => 'Sikeres verseny felvétel'
+            ], 201);
         }
     }
 
@@ -115,7 +114,7 @@ class EventController extends Controller
     }
 
     /**
-     * Redirect to the Events page 
+     * Redirect to the Home page 
      * @return \Illuminate\Contracts\View\View
      */
     public function show()
@@ -133,5 +132,24 @@ class EventController extends Controller
         ->orderBy('events.date','desc')
         ->get();
         return view("welcome", ["events" => $events]);
+    }
+
+     /**
+     * Redirect to the Events page 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function showUser()
+    {
+        $events = Event::leftJoin('invitees', 'events.id', '=', 'invitees.event_id')
+            ->where(function ($query) {
+                $query->where('invitees.user_id', Auth::user()->id)
+                      ->orWhere('events.creator_id', Auth::user()->id);
+            })
+            ->select('events.*')
+            ->distinct()
+            ->orderBy('events.date', 'desc')
+            ->get();
+
+        return view("user.events", ["events" => $events]);
     }
 }

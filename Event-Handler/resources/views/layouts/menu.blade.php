@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{route("home")}}">Versenykezelő alkalmazás</a>
+            <a class="navbar-brand" href="{{route("home")}}">Eseménykezelő alkalmazás</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                 aria-label="Toggle navigation">
@@ -10,7 +10,7 @@
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                 aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Versenykezelő</h5>
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Eseménykezelő</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
@@ -38,7 +38,7 @@
                                     href="{{route("home")}}">Kezdőoldal</a>
                             </li>
 
-                             {{--The dropdown --}}
+                            {{--The dropdown --}}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -52,9 +52,16 @@
                                         <hr class="dropdown-divider">
                                     </li>
 
-                                    {{-- Events created by the logges in user--}}
-                                    <li><a class="dropdown-item" href="{{route("events.create")}}">Általam létrehezott
-                                            események</a></li>
+                                    {{-- Events created by the logged in user--}}
+                                    <li><a class="dropdown-item" href="{{route("events.create")}}">Létrehezott
+                                            eseményeim</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    {{-- Events that the user is going or invited--}}
+                                    <li><a class="dropdown-item" href="{{route("user.events")}}">Jelenlegi eseményeim</a>
+                                    </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

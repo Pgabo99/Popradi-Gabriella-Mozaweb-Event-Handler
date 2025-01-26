@@ -1,5 +1,5 @@
 @extends("layouts.default")
-@section("title", "Kezdőoldal")
+@section("title", "Események")
 @section("content")
 
 @include('events.preview')

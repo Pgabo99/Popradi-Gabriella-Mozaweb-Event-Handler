@@ -53,7 +53,7 @@
                         <label for="type" class="form-label">Típus</label>
                         <select class="form-control" id="type" name="type" required>
                             <option value="public" selected>Publikus</option>
-                            <option value="private">Private</option>
+                            <option value="private">Privát</option>
                         </select>
                         <span id="EventTypeError" class="text-danger error-msg"></span>
                     </div>
@@ -81,9 +81,8 @@
 {{-- New competition modal trigger button --}}
 <div class="d-grid gap-2">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Event" id="addEvent"
-        width="100%"> Új verseny </button>
+        width="100%"> Új esemény</button>
 </div>
-
 
 <div class="card">
     {{-- Events table--}}
@@ -141,8 +140,8 @@
         $('#eventSaveBTn').click(function () {
 
             //Disabling the save button during action
-            $('eventSaveBTn').attr('disabled', true);
-            $('eventSaveBTn').html('Folyamatban...');
+            $('#eventSaveBTn').attr('disabled', true);
+            $('#eventSaveBTn').html('Folyamatban...');
             var formData = new FormData(form);
 
             // Saving the datas
@@ -155,8 +154,8 @@
                 success: function (response) {
                     table.draw();
                     $('.eventModel').modal('hide');
-                    $('eventSaveBTn').attr('disabled', false);
-                    $('eventSaveBTn').html('Mentés');
+                    $('#eventSaveBTn').attr('disabled', false);
+                    $('#eventSaveBTn').html('Mentés');
                     $('.error-msg').html('');
                     if (response) {
                         swal("Sikeres mentés!", response.success, "success");
@@ -173,7 +172,6 @@
                     }
                 }
             });
-
         });
 
         //Edit button code
