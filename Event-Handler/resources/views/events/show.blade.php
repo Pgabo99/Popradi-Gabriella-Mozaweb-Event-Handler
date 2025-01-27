@@ -1,21 +1,4 @@
-<p class="d-inline-flex gap-1">
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-        aria-controls="collapseExample">
-        Szűrés
-    </a>
-</p>
-<div class="collapse" id="collapseExample">
-    <div class="card card-body">
-        <form method="GET" action="{{ route('home') }}" class="searchForm">
-            <div class="mb-3">
-                <label for="searchLocation" class="form-label">Helyszín</label>
-                <input type="text" class="form-control" id="searchLocation" name="searchLocation"
-                    value="{{ request()->get('searchLocation', '') }}">
-            </div>
-            <button type="submit" class="btn btn-primary">Keresés</button>
-        </form>
-    </div>
-</div>
+
 
 <div class="events-container">
     @if($events->isEmpty())
@@ -53,23 +36,6 @@
 
 <script>
     $(document).ready(function () {
-
-        $('#searchBtn').click(function () {
-            var searchLocation = $('#searchLocation').val();
-
-            $.ajax({
-                url: '{{ route("home") }}',
-                method: 'GET',
-                data: { searchLocation: searchLocation },
-                success: function (response) {
-                    // Itt frissítheted a megjelenített eseményeket
-                    $('#eventsContainer').html(response); // Események frissítése
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
 
         //Saving 
         var form = $('#inviteeForm')[0];
