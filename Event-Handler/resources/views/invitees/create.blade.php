@@ -12,7 +12,8 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="event_id" class="form-control" name="event_id" value="{{$event->id}}">
-                    <!-- Users-->
+
+                    {{-- Users--}}
                     <div class="form-group mb-3">
                         <label for="user_id" class="form-label">Felhasználók</label>
                         <select class="form-control" id="user_id" name="user_id">
@@ -24,6 +25,7 @@
                         </select>
                         <span id="userIdError" class="text-danger error-msg"></span>
                     </div>
+
                     {{-- Close and Save Buttons --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
@@ -34,13 +36,15 @@
         </div>
     </form>
 </div>
+
 {{-- New invite modal trigger button --}}
 <div class="d-grid gap-2">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#invite" id="addInvite"
         width="100%"> Emberek meghívása</button>
 </div>
+
+{{-- Invites table--}}
 <div class="card">
-    {{-- Invites table--}}
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-sm table-hover align-middle caption-bottom table-bordered" id="invites-table">
@@ -62,6 +66,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         //Binding data for the Invites Table
@@ -79,14 +84,17 @@
         });
         // Deleting the error messages
         $('.error-msg').html('');
+
         //Saving/Updating data
         var form = $('#inviteForm')[0];
+
         $('#inviteSaveBTn').click(function () {
             //Disabling the save button during action
             $('#inviteSaveBTn').attr('disabled', true);
             $('#inviteSaveBTn').html('Folyamatban...');
             var formData = new FormData(form);
             formData.append("confirmed", "no")
+
             // Saving the datas
             $.ajax({
                 url: '{{route("invitees.store")}}',
@@ -114,6 +122,7 @@
             $('#inviteSaveBTn').attr('disabled', false);
             $('#inviteSaveBTn').html('Mentés');
         });
+
         //Delete button code
         $('body').on('click', '.deleteButton', function () {
             var event_id = $(this).data('event_id');
@@ -132,6 +141,7 @@
                 });
             }
         });
+
         //Before new invite the default values are restored
         $('#addInvite').click(function () {
             $('#user_id').val('');

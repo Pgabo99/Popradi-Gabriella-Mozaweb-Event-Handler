@@ -17,8 +17,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   {{-- SweetAlert--}}
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {{--Style for the clickable class--}}
   <style>
-    .clickable{
+    .clickable {
       cursor: pointer;
     }
   </style>
@@ -27,6 +28,7 @@
 <body>
   @include('layouts.menu')
 
+  {{--Main concent--}}
   <main class="mt-5">
     <div class="container">
       @yield("content")

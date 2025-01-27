@@ -45,7 +45,7 @@ class UserController extends Controller
             "email" => "required|email",
             "name" => "required|string",
         ]);
-        if($data["email"]===$user->email&&auth()->user()->name===$data["name"]){
+        if ($data["email"] === $user->email && auth()->user()->name === $data["name"]) {
             return redirect(route("user.edit", $user))->with("warning", "Nem is változtattál semmit");
         }
         if ($data["email"] !== $user->email) {
@@ -74,9 +74,5 @@ class UserController extends Controller
             return redirect(route("home"))->with("success", "Sikeres törlés!");
         }
         return redirect(route("user.edit", $user))->with("error", "Sikertelen, próbáld újra");
-    }
-
-    public function getAll(){
-        return User::select('id','name',"email")->get();
     }
 }

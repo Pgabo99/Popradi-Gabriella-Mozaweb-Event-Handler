@@ -26,6 +26,7 @@ class InviteesController extends Controller
             ->where("events.creator_id", "=", Auth::user()->id)
             ->where("events.id", "=", $event_id)
             ->get();
+            
         if ($request->ajax()) {
             return DataTables::of($invitees)->addColumn('action', function ($row) {
                 return '<a href="javascript:void(0)" class="btn-sm btn btn-danger deleteButton d-grid gap-2" data-event_id="' . $row->event_id . '" data-user_id="' . $row->user_id . '">Töröl</a>';
@@ -36,7 +37,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Redirects to the Events page
+     * Redirects to the Invittes page
      * @return \Illuminate\Contracts\View\View
      */
     public function create($event_id)
@@ -54,7 +55,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Creates/Updates a Round
+     * Creates/Updates a Invites
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
@@ -72,7 +73,7 @@ class InviteesController extends Controller
                 ->update($data);
 
             return response()->json([
-                'success' => 'Sikeresen jelentkeztél'
+                'success' => 'Sikeres'
             ], 201);
         }
         if (Invitees::create($data)) {
@@ -83,7 +84,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Summary of getOne
+     * Returns one events invitees
      * @param mixed $user_id
      * @param mixed $event_id
      * @return TModel|null
@@ -95,7 +96,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Summary of destroy
+     * Deletes the invite if it exists
      * @param \Illuminate\Http\Request $request
      * @param mixed $user_id
      * @param mixed $event_id

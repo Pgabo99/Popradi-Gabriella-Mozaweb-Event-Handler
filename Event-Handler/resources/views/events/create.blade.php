@@ -84,8 +84,8 @@
         width="100%"> Új esemény</button>
 </div>
 
+{{-- Events table--}}
 <div class="card">
-    {{-- Events table--}}
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-sm table-hover align-middle caption-bottom table-bordered" id="events-table">
@@ -169,7 +169,7 @@
                 }
             });
             $('#eventSaveBTn').attr('disabled', false);
-                    $('#eventSaveBTn').html('Mentés');
+            $('#eventSaveBTn').html('Mentés');
         });
 
         //Edit button code
@@ -233,7 +233,7 @@
 
         //Click on a table row redirects us to the round page
         $('#events-table tbody').on('click', 'td.clickable', function () {
-            let url =  '{{ url("invitees") }}/' + (this).textContent.trim() + '/create';
+            let url = '{{ url("invitees") }}/' + (this).textContent.trim() + '/create';
             window.location.href = url;
         });
     });

@@ -31,7 +31,7 @@
 
                         {{-- Pages related to logged in users--}}
                         @auth
-
+                        
                             {{--Homepage--}}
                             <li class="nav-item">
                                 <a class="nav-link {{Request::path() == '/' ? 'active' : '' }}" aria-current="page"

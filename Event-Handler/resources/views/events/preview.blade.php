@@ -1,4 +1,4 @@
-<!-- Modal -->
+{{-- Modal for the Event datas, and the join--}}
 <div class="modal fade" id="eventPreviewModal" tabindex="-1" aria-labelledby="eventPreviewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -21,7 +21,8 @@
                     <input type="hidden" id="preview_event_type" class="form-control" name="preview_event_type">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
                     <button type="button" id="inviteeSaveBtn" class="btn btn-primary">Ott leszek</button>
-                    <button type="button" id="inviteeNoSaveBtn" class="btn btn-primary" disabled="true" hidden>Mégse megyek</button>
+                    <button type="button" id="inviteeNoSaveBtn" class="btn btn-primary" disabled="true" hidden>Mégse
+                        megyek</button>
                 </form>
             </div>
         </div>
@@ -32,7 +33,7 @@
     $(document).ready(function () {
 
         //Binding the datas into the modal
-        $('body').on('click', '.click', function () { 
+        $('body').on('click', '.click', function () {
             var event_id = $(this).data("id");
             var user_id = {{Auth::user()->id}};
             $.ajax({
@@ -66,7 +67,7 @@
                     $('#preview_event_type').val(response.type);
                     $('#user_id').val(user_id);
                     $('#dateAndLocation').html(response.date + ", " + response.location);
-                    document.getElementById("previewPicture").src = "/images/"+response.picture;
+                    document.getElementById("previewPicture").src = "/images/" + response.picture;
                     $('#event_preview_type').html(response.type === 'private' ? 'Magán rendezvény' : 'Közösségi rendezvény');
                     $('#previewDescription').html(response.description);
                     if (response.creator_id === user_id || response.date < new Date().toISOString().slice(0, 10)) {
