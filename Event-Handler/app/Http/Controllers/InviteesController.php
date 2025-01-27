@@ -20,11 +20,15 @@ class InviteesController extends Controller
             'event_id' => 'required|numeric',
             'confirmed' => 'string'
         ]);
-        if($request["edit"]!=null){
+        if ($request["edit"] != null) {
             DB::table("invitees")
-            ->where('user_id', $data["user_id"])
-            ->where('event_id', $data["event_id"])
-            ->update($data);
+                ->where('user_id', $data["user_id"])
+                ->where('event_id', $data["event_id"])
+                ->update($data);
+
+            return response()->json([
+                'success' => 'Sikeresen jelentkeztél'
+            ], 201);
         }
         if (Invitees::create($data)) {
             return response()->json([
@@ -46,12 +50,12 @@ class InviteesController extends Controller
      * @param mixed $event_id
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, $user_id,$event_id)
+    public function destroy(Request $request, $user_id, $event_id)
     {
         $deleted = DB::table('invitees')
-                 ->where('user_id', $user_id)
-                 ->where('event_id', $event_id)
-                 ->delete();
+            ->where('user_id', $user_id)
+            ->where('event_id', $event_id)
+            ->delete();
         if (!$deleted) {
             return response()->json([
                 'error' => 'Sikertelen.'

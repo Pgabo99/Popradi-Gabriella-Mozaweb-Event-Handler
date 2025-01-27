@@ -60,7 +60,7 @@
                                     </li>
 
                                     {{-- Events that the user is going or invited--}}
-                                    <li><a class="dropdown-item" href="{{route("user.events")}}">Jelenlegi eseményeim</a>
+                                    <li><a class="dropdown-item" href="{{route("user.events")}}">Felvett eseményeim</a>
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
