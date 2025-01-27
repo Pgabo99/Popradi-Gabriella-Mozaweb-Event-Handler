@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 class AuthController extends Controller
 {
     /**
@@ -67,7 +66,6 @@ class AuthController extends Controller
         if ($user->save()) {
             return redirect(route("login"))->with("success", "Sikeres regisztráció!");
         }
-
         return redirect(route("register"))->with("error", "Sikertelen regisztráció, próbáld újra");
     }
 
@@ -79,7 +77,6 @@ class AuthController extends Controller
     public function logoutPost(Request $request)
     {
         Auth::logout();
-
         return redirect(route('login'))->with('success', 'Sikeres kijelentkezés');
     }
 

@@ -2,6 +2,7 @@
 @section("title", "Felvett események")
 @section("content")
 
+{{--Searchbar--}}
 <p class="d-inline-flex gap-1">
     <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
         aria-controls="collapseExample">
@@ -34,12 +35,12 @@
                 </select>
 
                 <label for="searchFromDate" class="form-label">Mettől</label>
-                <input type="date" min="2025-01-01" value="2025-01-01" class="form-control" id="searchFromDate" name="searchFromDate"
-                    value="{{ request()->get('searchFromDate', '') }}">
+                <input type="date" min="2025-01-01" value="2025-01-01" class="form-control" id="searchFromDate"
+                    name="searchFromDate" value="{{ request()->get('searchFromDate', '') }}">
 
                 <label for="searchToDate" class="form-label">Meddig</label>
-                <input type="date" min="2025-01-01" value="2025-12-31" class="form-control" id="searchToDate" name="searchToDate"
-                    value="{{ request()->get('searchToDate', '') }}">
+                <input type="date" min="2025-01-01" value="2025-12-31" class="form-control" id="searchToDate"
+                    name="searchToDate" value="{{ request()->get('searchToDate', '') }}">
             </div>
             <button type="submit" class="btn btn-primary">Keresés</button>
         </form>

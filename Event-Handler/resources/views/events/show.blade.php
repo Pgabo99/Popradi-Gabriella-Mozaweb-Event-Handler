@@ -1,5 +1,4 @@
-
-
+{{--Listing the events--}}
 <div class="events-container">
     @if($events->isEmpty())
         <div class="alert alert-warning" role="alert">
@@ -50,7 +49,7 @@
             savingData(formData);
         });
 
-        //delete 
+        //Delete 
         $('#inviteeNoSaveBtn').click(function () {
 
             //Disabling the save button during action
@@ -87,6 +86,7 @@
         });
     });
 
+    //Save Invite
     function savingData(formData) {
         $.ajax({
             url: '{{route("invitees.store")}}',

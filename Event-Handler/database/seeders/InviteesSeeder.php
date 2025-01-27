@@ -40,7 +40,6 @@ class InviteesSeeder extends Seeder
                     'event_id'=>2,
                     'confirmed' => 'yes',
                 ]
-                
             ]);
         }
     }

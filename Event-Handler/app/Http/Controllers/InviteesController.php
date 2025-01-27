@@ -36,7 +36,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Redirects to the Events page
+     * Redirects to the Invittes page
      * @return \Illuminate\Contracts\View\View
      */
     public function create($event_id)
@@ -54,7 +54,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Creates/Updates a Round
+     * Creates/Updates a Invites
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
@@ -83,7 +83,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Summary of getOne
+     * Returns one events invitees
      * @param mixed $user_id
      * @param mixed $event_id
      * @return TModel|null
@@ -95,7 +95,7 @@ class InviteesController extends Controller
     }
 
     /**
-     * Summary of destroy
+     * Deletes the invite if it exists
      * @param \Illuminate\Http\Request $request
      * @param mixed $user_id
      * @param mixed $event_id

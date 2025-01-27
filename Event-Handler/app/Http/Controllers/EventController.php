@@ -42,7 +42,7 @@ class EventController extends Controller
     }
 
     /**
-     * Creates/Updates a Round
+     * Creates/Updates an Event
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
@@ -57,11 +57,11 @@ class EventController extends Controller
             'description' => 'required|string',
         ]);
         $data['creator_id'] = Auth::user()->id;
-        $image=$request->file('picture');
-        $new_name=rand().'.'.$image->getClientOriginalExtension();
+        $image = $request->file('picture');
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('images'), $new_name);
 
-        $data["picture"]= $new_name;
+        $data["picture"] = $new_name;
 
         if ($request->event_edit != null) {
             $event = Event::findOrFail($request["event_id"]);
@@ -141,8 +141,7 @@ class EventController extends Controller
         $query = $this->searchDescription(request(), $query);
         $query = $this->searchName(request(), $query);
         $query = $this->searchType(request(), $query);
-        $query = $this->searchFromDate(request(), $query);
-        $query = $this->searchToDate(request(), $query);
+        $query = $this->searchDate(request(), $query);
 
         $events = $query->get();
 
@@ -168,13 +167,17 @@ class EventController extends Controller
         $query = $this->searchDescription(request(), $query);
         $query = $this->searchName(request(), $query);
         $query = $this->searchType(request(), $query);
-        $query = $this->searchFromDate(request(), $query);
-        $query = $this->searchToDate(request(), $query);
+        $query = $this->searchDate(request(), $query);
         $events = $query->get();
 
         return view("user.events", ["events" => $events]);
     }
 
+    /**
+     * Filters the events based on their Location
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $query
+     */
     public function searchLocation(Request $request, $query)
     {
         if ($request->has('searchLocation') && $request->get('searchLocation') !== '') {
@@ -184,6 +187,11 @@ class EventController extends Controller
         return $query;
     }
 
+    /**
+     * Filters the events based on their Description
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $query
+     */
     public function searchDescription(Request $request, $query)
     {
         if (request()->has('searchDescription') && request()->get('searchDescription') !== '') {
@@ -193,6 +201,11 @@ class EventController extends Controller
         return $query;
     }
 
+    /**
+     *  Filters the events based on their Name
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $query
+     */
     public function searchName(Request $request, $query)
     {
         if (request()->has('searchName') && request()->get('searchName') !== '') {
@@ -202,6 +215,11 @@ class EventController extends Controller
         return $query;
     }
 
+    /**
+     * Filters the events based on their Type
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $query
+     */
     public function searchType(Request $request, $query)
     {
         if (request()->has('searchType') && request()->get('searchType') !== '') {
@@ -211,16 +229,18 @@ class EventController extends Controller
         return $query;
     }
 
-    public function searchFromDate(Request $request, $query)
+    /**
+     *  Filters the events based on their Date 
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $query
+     */
+    public function searchDate(Request $request, $query)
     {
         if (request()->has('searchFromDate') && request()->get('searchFromDate') !== '') {
             $searchFromDate = request()->get('searchFromDate');
             $query->where('date', '>=', $searchFromDate);
         }
-        return $query;
-    }
-    public function searchToDate(Request $request, $query)
-    {
+
         if (request()->has('searchToDate') && request()->get('searchToDate') !== '') {
             $searchToDate = request()->get('searchToDate');
             $query->where('date', '<=', $searchToDate);
