@@ -26,6 +26,7 @@ class InviteesController extends Controller
             ->where("events.creator_id", "=", Auth::user()->id)
             ->where("events.id", "=", $event_id)
             ->get();
+            
         if ($request->ajax()) {
             return DataTables::of($invitees)->addColumn('action', function ($row) {
                 return '<a href="javascript:void(0)" class="btn-sm btn btn-danger deleteButton d-grid gap-2" data-event_id="' . $row->event_id . '" data-user_id="' . $row->user_id . '">Töröl</a>';
@@ -72,7 +73,7 @@ class InviteesController extends Controller
                 ->update($data);
 
             return response()->json([
-                'success' => 'Sikeresen jelentkeztél'
+                'success' => 'Sikeres'
             ], 201);
         }
         if (Invitees::create($data)) {
