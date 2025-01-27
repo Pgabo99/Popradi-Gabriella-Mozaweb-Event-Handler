@@ -18,7 +18,7 @@ class InviteesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request,$event_id)
+    public function index(Request $request, $event_id)
     {
         $invitees = Invitees::join('events', "events.id", "=", "invitees.event_id")
             ->join("users", "users.id", "=", "invitees.user_id")
@@ -66,7 +66,6 @@ class InviteesController extends Controller
             'confirmed' => 'string'
         ]);
         if ($request["edit"] != null) {
-        if ($request["edit"] != null) {
             DB::table("invitees")
                 ->where('user_id', $data["user_id"])
                 ->where('event_id', $data["event_id"])
@@ -103,12 +102,8 @@ class InviteesController extends Controller
      * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $user_id, $event_id)
-    public function destroy(Request $request, $user_id, $event_id)
     {
         $deleted = DB::table('invitees')
-            ->where('user_id', $user_id)
-            ->where('event_id', $event_id)
-            ->delete();
             ->where('user_id', $user_id)
             ->where('event_id', $event_id)
             ->delete();
