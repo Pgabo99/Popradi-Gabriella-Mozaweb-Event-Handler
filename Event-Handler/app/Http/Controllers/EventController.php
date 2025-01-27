@@ -52,11 +52,17 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'date' => 'required|date',
             'location' => 'required|string|max:255',
-            'picture' => 'required|string|max:255',
+            'picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'type' => 'required|string',
             'description' => 'required|string',
         ]);
         $data['creator_id'] = Auth::user()->id;
+        $image=$request->file('picture');
+        $new_name=rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
+
+        $data["picture"]= $new_name;
+
         if ($request->event_edit != null) {
             $event = Event::findOrFail($request["event_id"]);
 
