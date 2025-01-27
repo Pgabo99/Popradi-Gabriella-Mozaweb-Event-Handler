@@ -53,7 +53,7 @@ class UserController extends Controller
                 "email" => "unique:App\Models\User",
             ]);
         }
-        $thisUser = User::where('email', operator: $user->email)->first();
+        $thisUser = User::findOrFail($user->id);
         if ($thisUser->update($data)) {
             return redirect(route("user.show", $user))->with("success", "Mentve!");
         }
@@ -68,11 +68,15 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $thisUser = User::where('id', operator: $user->id)->first();
+        $thisUser = User::findOrFail($user->id);
         if ($thisUser->delete($user->email)) {
             Auth::logout();
             return redirect(route("home"))->with("success", "Sikeres törlés!");
         }
         return redirect(route("user.edit", $user))->with("error", "Sikertelen, próbáld újra");
+    }
+
+    public function getAll(){
+        return User::select('id','name',"email")->get();
     }
 }

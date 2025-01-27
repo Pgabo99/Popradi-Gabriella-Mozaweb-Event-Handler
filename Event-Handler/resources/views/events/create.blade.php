@@ -89,17 +89,16 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-sm table-hover align-middle caption-bottom table-bordered" id="events-table">
-                <caption>Előnézet megtekintéséhez kattints az előnézet gombra</caption>
+                <caption>Meghívottak megtekintéséhez kattints az esemény ID mezőjére</caption>
                 <thead class="table-light align-middle">
                     <tr>
-                        <th colspan="8" style="text-align: center;">Eseményeim</th>
+                        <th colspan="7" style="text-align: center;">Eseményeim</th>
                     </tr>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Név</th>
                         <th scope="col">Dátum</th>
                         <th scope="col">Helyszín</th>
-                        <th scope="col">Kép</th>
                         <th scope="col">Típus</th>
                         <th scope="col">Leírás</th>
                         <th scope="col">Művelet</th>
@@ -121,13 +120,12 @@
             serverSide: true,
             ajax: "{{route('events.index')}}",
             columns: [
-                { data: 'id'},
-                { data: 'name'},
-                { data: 'date'},
-                { data: 'location'},
-                { data: 'picture'},
-                { data: 'type'},
-                { data: 'description'},
+                { data: 'id', className: "clickable" },
+                { data: 'name' },
+                { data: 'date' },
+                { data: 'location' },
+                { data: 'type' },
+                { data: 'description' },
                 { data: 'action', name: 'action', orderable: false, searchable: false }
             ]
         });
@@ -154,8 +152,6 @@
                 success: function (response) {
                     table.draw();
                     $('.eventModel').modal('hide');
-                    $('#eventSaveBTn').attr('disabled', false);
-                    $('#eventSaveBTn').html('Mentés');
                     $('.error-msg').html('');
                     if (response) {
                         swal("Sikeres mentés!", response.success, "success");
@@ -172,6 +168,8 @@
                     }
                 }
             });
+            $('#eventSaveBTn').attr('disabled', false);
+                    $('#eventSaveBTn').html('Mentés');
         });
 
         //Edit button code
@@ -221,7 +219,7 @@
         $('#addEvent').click(function () {
             $('#event_edit').val(null);
             $('#event_id').val(null);
-            $('#name').val(''); 
+            $('#name').val('');
             $('#date').val(new Date().toISOString().slice(0, 10));
             $('#location').val('');
             $('#picture').val('');
@@ -231,6 +229,12 @@
             $('#EventTitle').html('Verseny felvétele');
             $('#event_edit').val(null);
             $('.error-msg').html('');
+        });
+
+        //Click on a table row redirects us to the round page
+        $('#events-table tbody').on('click', 'td.clickable', function () {
+            let url =  '{{ url("invitees") }}/' + (this).textContent.trim() + '/create';
+            window.location.href = url;
         });
     });
 </script>

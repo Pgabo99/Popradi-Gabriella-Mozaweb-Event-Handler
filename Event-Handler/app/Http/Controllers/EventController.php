@@ -38,8 +38,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $events = Event::select('id', 'name', 'date', 'location', 'picture', 'type', 'description')->where('creator_id', Auth::user()->id);
-        return view("events.create", ["events" => $events]);
+        return view("events.create");
     }
 
     /**
@@ -148,7 +147,7 @@ class EventController extends Controller
      * Redirect to the Events page 
      * @return \Illuminate\Contracts\View\View
      */
-    public function showUser()
+    public function showUserEvent()
     {
         $query = Event::leftJoin('invitees', 'events.id', '=', 'invitees.event_id')
             ->where(function ($query) {

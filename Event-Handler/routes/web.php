@@ -12,7 +12,7 @@ Route::middleware("auth")->group(function () {
     //User
     Route::get('/',[EventController::class, 'show'] )->name('home');
     Route::post("/logout", [AuthController::class, "logoutPost"])->name("logout.post");
-    Route::get('/user/events', [EventController::class, 'showUser'])->name('user.events');
+    Route::get('/user/events', [EventController::class, 'showUserEvent'])->name('user.events');
     Route::resource("user", UserController::class)->only("show", "edit", "update", "destroy");
 
     //Events
@@ -26,6 +26,8 @@ Route::middleware("auth")->group(function () {
     Route::post('/invitees/store', [InviteesController::class, 'store'])->name('invitees.store');
     Route::get('/invitees/{user_id}/{event_id}/getone', [InviteesController::class, 'getOne'])->name('invitees.getOne');
     Route::delete('/invitees/{user_id}/{event_id}/delete', [InviteesController::class, 'destroy'])->name('invitees.destroy');
+    Route::get('/invitees/{event_id}/index', [InviteesController::class, 'index'])->name('invitees.index');
+    Route::get('/invitees/{event_id}/create', [InviteesController::class, 'create'])->name('invitees.create');
 });
 
 //Routes for Guests
