@@ -66,7 +66,7 @@
                     $('#preview_event_type').val(response.type);
                     $('#user_id').val(user_id);
                     $('#dateAndLocation').html(response.date + ", " + response.location);
-                    document.getElementById("previewPicture").src = response.picture;
+                    document.getElementById("previewPicture").src = "/images/"+response.picture;
                     $('#event_preview_type').html(response.type === 'private' ? 'Magán rendezvény' : 'Közösségi rendezvény');
                     $('#previewDescription').html(response.description);
                     if (response.creator_id === user_id || response.date < new Date().toISOString().slice(0, 10)) {

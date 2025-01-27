@@ -11,7 +11,7 @@
                 <div class="col">
                     <div
                         class="card {{$event->date < date('Y-m-d') ? "text-bg-secondary" : ($event->type === "private" ? "text-bg-dark text-white" : "")}}">
-                        <img src="{{$event->picture}}" class="card-img-top" alt="Event image"
+                        <img src="/images/{{$event->picture}}" class="card-img-top" alt="Event image"
                             style="height: 200px;object-fit: cover;object-position: center; width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title text-truncate">{{$event->name}}</h5>

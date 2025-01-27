@@ -44,7 +44,7 @@
                     {{-- Picture --}}
                     <div class="form-group mb-3">
                         <label for="picture" class="form-label">Kép</label>
-                        <input type="text" placeholder="Kép" id="picture" class="form-control" name="picture" required>
+                        <input type="file" placeholder="Kép" id="picture" class="form-control" name="picture" required>
                         <span id="pictureError" class="text-danger error-msg"></span>
                     </div>
 
